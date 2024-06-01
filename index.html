@@ -1,0 +1,375 @@
+<html>
+<head>
+  <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+    }
+
+    body {  
+        display: flex;
+    }   
+
+    #calculadora {
+        width: 300px;
+        height: 575px;
+        border: 1px solid black;
+        margin: auto;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);      
+    }
+
+    #visor {
+        width: 260px;
+        height: 40px;
+        border: 1px solid gray;
+        margin: 10px;
+        padding: 5px;
+        font-size: 24px;
+        text-align: right;
+        border-radius: 5px;
+        background-color: black;
+        color: green;
+    }
+
+    #historico {
+        width: 300px;
+        height: 575px;
+        border: 1px solid black;
+        margin: auto;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);      
+    }
+
+    .teclas {
+        border-radius: 5px;
+        width: 50px;
+        height: 50px;
+        border: 1px solid gray;
+        margin: 8px;
+        padding: 10px;
+        font-size: 24px;
+        text-align: center;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .teclas2 {
+        border-radius: 5px;
+        width: 50px;
+        height: 50px;
+        border: 1px solid gray;
+        margin: 8px;
+        padding: 10px;
+        font-size: 24px;
+        text-align: center;
+        cursor: pointer;
+        display: inline-block;
+        background-color: darkslategray;
+        color: white;
+    }
+
+    #teclas3 {
+        border-radius: 5px;
+        width: 100%;
+        height: 45px;
+        border: 1px solid gray;
+        padding: 10px;
+        font-size: 20px;
+        text-align: center;
+        cursor: pointer;
+        display: inline-block;
+        background-color: darkslategray;
+        color: white;
+    }
+
+    #teclas4 {
+        border-radius: 5px;
+        width: 100%;
+        height: 45px;
+        border: 1px solid gray;
+        padding: 10px;
+        font-size: 20px;
+        text-align: center;
+        cursor: pointer;
+        display: inline-block;
+        background-color: darkslategray;
+        color: white;
+    }
+
+    .texto {
+      text-align: center;
+      font-size: 20px;
+    }
+
+    #limpar {
+        position: relative;
+        top: 85%;
+        left: 20%;
+        border-radius: 5px;
+        width: 150px;
+        height: 45px;
+        border: 1px solid gray;
+        margin: 8px;
+        padding: 10px;
+        font-size: 24px;
+        text-align: center;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    #nomes {
+        width: 260px;
+        height: 40px;
+        border: 1px solid gray;
+        margin: 10px;
+        padding: 5px;
+        font-size: 12px;
+        text-align: center;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+
+    }
+
+    .teclas:hover {
+        background-color: lightgray;
+    }
+
+    .teclas2:hover {
+      background-color: gray;
+    }
+
+    #teclas3:hover {
+      background-color: gray;
+    }
+
+    #teclas4:hover {
+      background-color: gray;
+    }
+
+    #limpar:hover {
+      background-color: lightgray;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="calculadora">
+    <div id="visor">0</div>
+    <br>
+    <div>
+      <div class="teclas" onclick="limpaVisor()">C</div>
+      <div class="teclas" onclick="guardarMemoria()">M+</div>
+      <div class="teclas" onclick="recuperarMemoria()">MR</div> 
+      <div class="teclas" onclick="apagarMemoria()">MC</div> 
+    </div>
+
+    <div>
+      <div class="teclas" onclick="adicionaDigito(7)">7</div>
+      <div class="teclas" onclick="adicionaDigito(8)">8</div>
+      <div class="teclas" onclick="adicionaDigito(9)">9</div>
+      <div class="teclas2" onclick="defineOperacao('/')">/</div>
+    </div>
+
+    <div>
+      <div class="teclas" onclick="adicionaDigito(4)">4</div>
+      <div class="teclas" onclick="adicionaDigito(5)">5</div>
+      <div class="teclas" onclick="adicionaDigito(6)">6</div>
+      <div class="teclas2" onclick="defineOperacao('*')">*</div>
+    </div>
+
+    <div>
+      <div class="teclas" onclick="adicionaDigito(1)">1</div>
+      <div class="teclas" onclick="adicionaDigito(2)">2</div>
+      <div class="teclas" onclick="adicionaDigito(3)">3</div>
+      <div class="teclas2" onclick="defineOperacao('-')">-</div>
+    </div>
+
+    <div>
+      <div class="teclas" onclick="calculeResultado()">=</div>
+      <div class="teclas" onclick="adicionaDigito(0)">0</div>
+      <div class="teclas" onclick="adicionaDecimal()">.</div>
+      <div class="teclas2" onclick="defineOperacao('+')">+</div>
+    </div>
+
+    <div>
+      <div id="teclas4" onclick="mudarCor()">Mudar Cor</div>
+    </div>
+
+    <div>
+      <div id="teclas3" onclick="mostrarNomes()">Mostrar Nomes</div>
+    </div>
+
+    <div id="nomes"></div>
+  </div>
+
+  <div id="historico">
+    <div class="texto">Histórico</div>
+    <hr>
+    <div id="limpar" onclick="limparTela()">Limpar</div>
+  </div>
+
+  <script>
+    // Variáveis para armazenar o valor do visor, o primeiro operando, o segundo operando e a operação
+    var valorVisor = "0";
+    var primeiroValor = null;
+    var segundoValor = null;
+    var operacao = null;
+    var nome = "";
+    var nomes = "Mostrar Nomes";
+    var color = "0";
+    var resultado = null;
+    var memoria = null;
+    var numero_atual = null;
+
+    function guardarMemoria() {
+      memoria = numero_atual;
+    }
+
+    function recuperarMemoria() {
+      valorVisor = memoria.toString();
+      document.getElementById("visor").innerText = memoria;
+      numero_atual = memoria;
+    }
+
+    function apagarMemoria() {
+      memoria = null;
+    }
+
+    function mudarCor() {
+      if (color === "0") {
+        visor.style.color = 'orange';
+        visor.style.background = 'darkblue';
+        color = "1";
+      } else {
+        visor.style.color = 'green';
+        visor.style.background = 'black';
+        color = "0";
+      }
+    }
+
+    function mostrarNomes() {
+      if (nome === "") {
+        nomes = "Não Mostrar Nomes";
+        nome = "Jean Lucca Toledo de Souza & Vinícius Eduardo Ritz Silva";
+        document.getElementById("nomes").innerText = nome;
+        document.getElementById("teclas3").innerText = nomes;
+      } else {
+        nome = "";
+        nomes = "Mostrar Nomes"
+        document.getElementById("nomes").innerText = nome;
+        document.getElementById("teclas3").innerText = nomes;
+      }
+    }
+
+    // Função para limpar o visor e redefinir as variáveis
+    function limpaVisor() {
+      valorVisor = "0";
+      primeiroValor = null;
+      segundoValor = null;
+      operacao = null;
+      atualizaVisor();
+    }
+
+    // Função para acrescentar um dígito ao valor exibido
+    function adicionaDigito(digit) {
+      // Se o valor exibido for 0, substitua-o pelo dígito
+      if (valorVisor === "0") {
+        valorVisor = digit.toString();
+      } else {
+        // Caso contrário, anexe o dígito ao valor de exibição
+        valorVisor += digit.toString();
+      }
+      numero_atual = valorVisor;
+      atualizaVisor();
+    }
+
+    // Função para acrescentar um ponto decimal ao valor de exibição
+    function adicionaDecimal() {
+      // Se o valor de exibição não contiver um ponto decimal, anexe um
+      if (!valorVisor.includes(".")) {
+        valorVisor += ".";
+      }
+      atualizaVisor();
+    }
+
+    // Função para definir a operação e armazenar o primeiro operando
+    function defineOperacao(op) {
+      // Se a operação não for nula, calcule primeiro o resultado
+      if (operacao !== null) {
+        calculeResultado();
+      }
+      // Armazene o valor de exibição como o primeiro operando
+      primeiroValor = parseFloat(valorVisor);
+      // Defina a operação
+      operacao = op;
+      // Limpe o valor de exibição
+      valorVisor = "0";
+      atualizaVisor();
+    }
+
+    // Função para calcular o resultado e exibi-lo
+    function calculeResultado() {
+      // Se a operação for nula, não faça nada
+      if (operacao === null) {
+        return;
+      }
+      // Armazena o valor de exibição como o segundo operando
+      segundoValor = parseFloat(valorVisor);
+      // Realize o cálculo com base na operação
+      switch (operacao) {
+        case "+":
+          valorVisor = soma(primeiroValor,segundoValor);
+          break;
+        case "-":
+          valorVisor = subtracao(primeiroValor,segundoValor);
+          break;
+        case "*":
+          valorVisor = multiplicacao(primeiroValor,segundoValor);
+          break;
+        case "/":
+          valorVisor = divisao(primeiroValor,segundoValor);
+          break;
+      }
+      // Resetar os valores
+      operacao = null;
+      primeiroValor = null;
+      segundoValor = null;
+      atualizaVisor();
+    }
+
+    // Função para atualizar o elemento de exibição com o valor de exibição
+    function atualizaVisor() {
+      document.getElementById("visor").innerText = valorVisor;
+    }
+
+    function soma(valor1,valor2) {
+      resultado = valor1 + valor2;
+      numero_atual = resultado;
+      return (resultado).toString();
+    }
+    function subtracao(valor1,valor2) {
+      resultado = valor1 - valor2;
+      numero_atual = resultado;
+      return (resultado).toString();
+    }
+    function multiplicacao(valor1,valor2) {
+      resultado = valor1 * valor2;
+      numero_atual = resultado;
+      return (resultado).toString();
+    }
+    function divisao(valor1,valor2) {
+      resultado = valor1 / valor2;
+      numero_atual = resultado;
+      return (resultado).toString();
+    }
+  </script>
+</body>
+</html>
